@@ -8,8 +8,7 @@ ChefGenius is an AI cooking assistant built with **Streamlit**, **Google Gemini*
 
 - 🧠 **AI-Generated Recipes** using Gemini (Gemini Pro 2.5)
 - 🔍 **Real-World Recipe Links** powered by Exa.ai search
-- 📦 **Download Recipe** as a `.pdf`
-- 🎨 *(Optional)*: Add AI-generated dish images (via Stability API)
+- 📦 **Download Recipe** as a `.txt`,`.md`
 - 🤖 Designed with human-friendly formatting (Markdown, emojis, tips)
 
 ---
@@ -47,3 +46,9 @@ cd chef-genius
 ├── requirements.txt
 └── README.md
 
+## NOTE
+app.py is better in terms of user experience, but app1.py is slightly more stable. Its up to you to choose whichever verison you want to utilize.
+
+## Contribute
+- Consider contributing by fine tuning the existing models to make them even more robust, or consider adding more features.
+- To contrbute you can branch the repository aond push your own commits.
