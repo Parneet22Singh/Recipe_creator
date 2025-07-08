@@ -8,7 +8,7 @@ ChefGenius is an AI cooking assistant built with **Streamlit**, **Google Gemini*
 
 - 🧠 **AI-Generated Recipes** using Gemini (Gemini Pro 2.5)
 - 🔍 **Real-World Recipe Links** powered by Exa.ai search
-- 📦 **Download Recipe** as a `.txt`, `.md`
+- 📦 **Download Recipe** as a `.pdf`
 - 🎨 *(Optional)*: Add AI-generated dish images (via Stability API)
 - 🤖 Designed with human-friendly formatting (Markdown, emojis, tips)
 
