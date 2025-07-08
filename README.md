@@ -47,7 +47,8 @@ cd chef-genius
 └── README.md
 
 ## NOTE
-app.py is better in terms of user experience, but app1.py is slightly more stable. Its up to you to choose whichever verison you want to utilize.
+- app.py is better in terms of user experience, but app1.py is slightly more stable. Its up to you to choose whichever verison you want to utilize.
+- You might face issues (connectivity issues) with Exa.ai, but not to worry, just a reload and you would be set. 
 
 ## Contribute
 - Consider contributing by fine tuning the existing models to make them even more robust, or consider adding more features.
