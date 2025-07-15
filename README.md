@@ -26,8 +26,8 @@ ChefGenius is an AI cooking assistant built with **Streamlit**, **Google Gemini*
 
 ### 1. Clone the Repository
 
-git clone https://github.com/Parneet22Singh/chef-genius.git
-cd chef-genius
+- git clone https://github.com/Parneet22Singh/Recipe_creator.git
+- cd Recipe_creator
 
 ### Install requirements
 - pip install -r requirements.txt
