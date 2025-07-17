@@ -18,7 +18,7 @@
 - **Tailwind CSS** (for styling and responsive design)
 - **Alpine.js** (for handling dark mode toggle)
 - **External Recipe API** for fetching real-world recipes.
-- **OpenAI’s GPT** (for generating AI-based recipes).
+- **Gemini** (for generating AI-based recipes).
 
 ---
 
