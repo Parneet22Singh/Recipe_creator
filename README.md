@@ -71,7 +71,7 @@ The app supports both dark mode and light mode. The toggle is handled using Alpi
 ├── requirements.txt     # Required Python packages
 ├── config.py            # Configuration for your app (API keys, etc.)
 ├── agent.py             # Logic for interacting with AI and APIs
-│── chat.py
+├── chat.py              # Logic for chat functionality (if needed)
 ├── templates/           # HTML files
 │   └── index.html       # Main template for the homepage
 ├── static/              # Static assets (CSS, images, etc.)
