@@ -66,6 +66,8 @@ Dark Mode / Light Mode Toggle:
 The app supports both dark mode and light mode. The toggle is handled using Alpine.js and Tailwind CSS.
 
 ## File Structure
+
+```plaintext
 .
 ├── main.py              # Main Flask application
 ├── requirements.txt     # Required Python packages
