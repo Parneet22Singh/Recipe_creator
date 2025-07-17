@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChefGenius 🍳</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    h1.title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      letter-spacing: 0.04em;
+      text-shadow: 2px 2px 7px rgba(0,0,0,0.1);
+      background: linear-gradient(90deg, #facc15, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
+    }
+    header.w-full {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+    .recipe-box {
+      white-space: pre-wrap;
+      font-family: 'Courier New', Courier, monospace;
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.3);
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #92400e;
+      user-select: text;
+      overflow-x: auto;
+    }
+    .recipe-box h1, .recipe-box h2, .recipe-box h3 {
+      font-weight: 700;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .recipe-box strong { font-weight: 600; }
+    .recipe-box em { font-style: italic; }
+    .recipe-box code {
+      background: #fde68a;
+      padding: 0.15rem 0.3rem;
+      border-radius: 0.3rem;
+      font-family: monospace;
+    }
+    .recipe-box ul, .recipe-box ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .recipe-box a {
+      pointer-events: none;
+      cursor: default;
+      text-decoration: none;
+      color: inherit;
+    }
+    .dark body {
+      background-color: #0b0b0b;
+      color: #e0e0e0;
+    }
+    .dark .recipe-box {
+      background: linear-gradient(135deg, #27272a, #3f3f46);
+      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.7);
+      color: #fbbf24;
+    }
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: #fbbf24;
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+    button.generate-btn {
+      background: linear-gradient(90deg, #facc15, #f59e0b);
+      color: #1f2937;
+      font-weight: 600;
+      box-shadow: 0 8px 15px rgba(250, 204, 21, 0.4);
+      transition: box-shadow 0.3s ease;
+    }
+    button.generate-btn:hover {
+      box-shadow: 0 15px 30px rgba(250, 204, 21, 0.75);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-start py-12 px-6 bg-yellow-50 dark:bg-gray-900 dark:text-gray-100">
+
+<header class="w-full max-w-5xl mb-10 flex justify-center">
+  <h1 class="title flex items-center space-x-3 text-4xl font-bold font-serif">
+    <img src="{{ url_for('static', filename='chef.jpg') }}" style="height:56px; width: 48px;" />
+    <span>ChefGenius</span>
+  </h1>
+</header>
+
+<!-- Dark Mode Toggle -->
+<div class="w-full max-w-5xl mb-10 flex justify-center">
+  <button
+    @click="darkMode = !darkMode"
+    class="focus:outline-none bg-yellow-400 dark:bg-yellow-500 rounded-full p-2 shadow-lg hover:bg-yellow-500 dark:hover:bg-yellow-600 transition"
+    :aria-label="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+    title="Toggle Dark Mode"
+  >
+    <template x-if="!darkMode">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 3v1m0 16v1m8.485-8.485h-1M4.515 12.515h-1M16.95 7.05l-.707-.707M7.757 16.243l-.707-.707M16.95 16.95l-.707.707M7.757 7.757l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z"/>
+      </svg>
+    </template>
+    <template x-if="darkMode">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-300" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+        <path d="M21 12.79A9 9 0 0112.21 3a7.5 7.5 0 109.2 9.79z" />
+      </svg>
+    </template>
+  </button>
+</div>
+
+<main class="w-full max-w-3xl space-y-8">
+
+  <form method="POST" class="space-y-6 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-xl ring-1 ring-yellow-300 dark:ring-yellow-600">
+    <label for="ingredients" class="block text-xl font-semibold text-yellow-700 dark:text-yellow-300 mb-2">
+      🥕 What ingredients and preferences do you have?
+    </label>
+    <textarea
+      id="ingredients"
+      name="ingredients"
+      rows="4"
+      placeholder="e.g. mushrooms, garlic, pasta. Want a 20-minute vegetarian meal."
+      required
+      class="w-full rounded-lg border border-yellow-400 dark:border-yellow-600 p-4
+      text-blue-700 dark:text-blue-400
+      placeholder-blue-300 dark:placeholder-blue-600
+      focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-700 transition"
+    >{{ request.form.get('ingredients', '') }}</textarea>
+
+    <!-- Real Recipes Toggle -->
+    <div class="flex items-center space-x-3">
+  <input
+    type="checkbox"
+    id="show_real"
+    name="show_real"
+    value="on"
+    {% if show_real %}checked{% endif %}
+    class="accent-yellow-400 dark:accent-yellow-500 w-5 h-5 rounded focus:ring-yellow-300 dark:focus:ring-yellow-700 transition"
+  />
+  <label for="show_real" class="font-semibold text-yellow-700 dark:text-yellow-300 select-none">
+    🔗 Show real recipes from the web
+       (Check the box before typing to fetch real recipes!)
+  </label>
+</div>
+
+
+    <button type="submit" class="generate-btn w-full py-4 rounded-lg text-lg">
+      🍳 Generate Recipe
+    </button>
+  </form>
+
+  {% if error %}
+    <div class="bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200 rounded-lg p-4 font-semibold shadow">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  {% if recipe %}
+    <section class="recipe-container">
+      <h2 class="text-yellow-700 dark:text-yellow-300 text-3xl font-bold mb-4 select-none">🍽️ Your Recipe</h2>
+      <pre class="recipe-box">{{ recipe|e }}</pre>
+      <div class="mt-6 flex flex-wrap gap-4">
+        <form action="/download/txt" method="post">
+          <textarea name="recipe_text" class="hidden">{{ recipe | e }}</textarea>
+          <button type="submit" class="generate-btn py-3 px-6 rounded-lg text-sm">📄 Download as TXT</button>
+        </form>
+        <form action="/download/md" method="post">
+          <textarea name="recipe_text" class="hidden">{{ recipe | e }}</textarea>
+          <button type="submit" class="generate-btn py-3 px-6 rounded-lg text-sm">📄 Download as MD</button>
+        </form>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if real_recipes and show_real %}
+    <section>
+      <h2 class="text-yellow-700 dark:text-yellow-300 text-3xl font-bold mb-6 select-none">🌐 Real Recipes Online</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {% for rec in real_recipes %}
+          <a href="{{ rec.url }}" target="_blank" rel="noopener" class="group block bg-yellow-50 dark:bg-yellow-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.03] transition">
+            <div class="relative h-48 overflow-hidden">
+              {% if rec.image %}
+                <img src="{{ rec.image }}" alt="{{ rec.title }}" class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110" />
+              {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-300 font-bold text-2xl">
+                  🍽️ No Image
+                </div>
+              {% endif %}
+            </div>
+            <div class="p-4">
+              <h3 class="text-xl font-semibold text-yellow-900 dark:text-yellow-300 mb-1 group-hover:underline">{{ rec.title }}</h3>
+              <p class="text-yellow-700 dark:text-yellow-400 text-sm">
+                {% if rec.author %}by <em>{{ rec.author }}</em>{% endif %}
+                {% if rec.published %} ({{ rec.published }}){% endif %}
+              </p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>
+
+<footer class="mt-16 mb-6 text-center text-gray-500 dark:text-gray-400 select-none">
+  Made with ❤️ by Parneet
+</footer>
+
+</body>
+</html>
