@@ -78,4 +78,6 @@ The app supports both dark mode and light mode. The toggle is handled using Alpi
 │   └── chef.jpg         # Example image for the header
 └── .env                 # Environment variables (API keys)
 
+## NOTE:
+ - app.py and app1.py are streamlit based alternatives of the webapp, you can use app.py or app1.py separately as a standalone webapp.
 
